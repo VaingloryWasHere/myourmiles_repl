@@ -1,0 +1,4 @@
+[1,Unnamed Undine Spirit,Common,250,5,slash]
+[2,Unnamed Slime,Common,500,7,jiggle,your mom]
+[3,Unnamed Lesser Demon,Common,750,5,fireball]
+[4,Unnamed Elf,Common,500,5,heal,bless,barrier]
