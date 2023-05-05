@@ -1,0 +1,9 @@
+each player's character will be stored in the DB as an individual entity so that I can transfer membership in the blink of an eye.
+VALUE:= name,owner id, move1,move2,move3,move4,move5...etc, reference id then hp at end. UPON CREATION moves will be empty by default.
+KEY: ENTITY ID
+ENTITYDEX: id,name,hp,max moves, attacks
+
+DB STORED ENTITY FORMAT: name, owner id, hp 
+EntityDex ID: Reference ID
+
+Entity ID: Actual ID used by game to refer to characters
