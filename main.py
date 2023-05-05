@@ -19,8 +19,8 @@ print(os.getenv("REPLIT_DB_URL"))
 these = discord.Intents().all()
 # Set up the bot command prefix
 bot = commands.Bot(command_prefix="#", intents=these)
-#instance discord-ui
-
+#instance discord-u
+print("hi")
 
 
 bot.owner_id = 718710286596702220
