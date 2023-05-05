@@ -1,5 +1,6 @@
 { pkgs }: {
   deps = [
+    pkgs.azure-functions-core-tools
     pkgs.python38Full
   ];
   env = {
