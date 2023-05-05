@@ -1,5 +1,6 @@
 { pkgs }: {
   deps = [
+    pkgs.gir-rs
     pkgs.azure-functions-core-tools
     pkgs.python38Full
   ];
