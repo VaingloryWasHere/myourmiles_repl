@@ -368,4 +368,4 @@ async def travel(ctx,*,destination):
 
 
 keep_alive()
-bot.run("MTA5NTY0NTA3NzM5MDUwODEwMg.G2qIJZ.Z72tzGiYYj-L4B2O3X72RzT-rUVaGUkvZh9BhI")
+bot.run("insert token here")
