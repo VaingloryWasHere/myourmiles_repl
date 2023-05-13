@@ -11,6 +11,8 @@ from time import *
 from datetime import timedelta
 from discord.ui import View, Button, Select
 import movement
+from tinydb import TinyDB, Query
+
 
 print(os.getenv("REPLIT_DB_URL"))
 
@@ -39,14 +41,16 @@ async def button(ctx):
 #GAME.START SECTION
 @bot.command()
 async def start(ctx):
-  all_entity = db.keys()
-  for key in all_entity:
-      entity_data = db[key]
-      if entity_data[1] == ctx.author.id: 
-        await ctx.send("Dummy, you've already used this command before!")
-        for key in all_entity:
-          print(f"{key}={db[key]}")
-        return
+  db = TinyDB("entities.json")
+
+  if db:
+        Entity = Query()
+        for entityInstance in db:
+            if 'owner_id' in entityInstance and entityInstance['owner_id'] == ctx.author.id:
+                # The third value of owner_id matches owner_id_to_check
+                print(f"Entity {entityInstance['entityID']} has owner_id {entityInstance['owner_id']} that matches {ctx.author.id}")
+                await ctx.send("Dummy, you've already used this command before!")
+                return
     
     
   embed=discord.Embed(title="Welcome!", description="This bot is like PokeTwo, except that instead of pokemon you use characters from Tensura and the people in this server. With that said, go ahead and choose your first character!", color=discord.Color.blue())
@@ -112,7 +116,7 @@ async def start(ctx):
   async def my_callback(interaction):
     disCrazy = interaction.response
     print(interaction.id)
-    await disCrazy.send_message("Hmm. I see you have chosen an {select.values[0]} as your first character. Type `#tutorial` to get further instructions. ")
+    await disCrazy.send_message(f"Hmm. I see you have chosen an {select.values[0]} as your first character. Type `#tutorial` to get further instructions. ")
     print(f"Chosen: {select.values[0]}")
     entity.create(ctx.author.id,select.values[0])
 
@@ -136,6 +140,12 @@ async def tutorial(ctx):
   __Page 4: Encounters.__
 
   __Page 5: Moving to different locations.__
+
+  __Page 6: Combat Attributes.__
+
+
+
+   
   
   '''
   page1 = discord.Embed(title="Your journey begins now.", description=page1_description, colour = discord.Colour.green())
@@ -184,13 +194,13 @@ async def tutorial(ctx):
 @bot.command()
 async def team(ctx):
   
-  try:
+  #try:
     teamNames, teamIDs, teamHPs = entity.listMine(ctx.author.id)
-  except:
-      stupid = discord.Embed(title="Woah, hold on!", description="You don't have any characters in your team because you haven't registered with the bot! To do so, type `#start`.", colour=discord.Colour.blue())
-      await ctx.send(embed=stupid)
-      return
-  else:
+  #except:
+      #stupid = discord.Embed(title="Woah, hold on!", description="You don't have any characters in your team because you haven't registered with the bot! To do so, type `#start`.", colour=discord.Colour.blue())
+      #await ctx.send(embed=stupid)
+      #return
+  
     info = discord.Embed(title="Your team.", description=f"You have {len(teamNames)} characters in your team.", colour = discord.Colour.green())
     times = 0
     for member in teamNames:
@@ -211,9 +221,27 @@ async def team(ctx):
 async def moveset(ctx, entityDexID):
   #each player can own only one instance of each character, thus each player will have only one entityDexId for each character
 
-  result = entity.moveset(entityDexID)
-  
-  await ctx.send(embed=result)
+  allMoves = entity.moveset(entityDexID)
+  movelist = entity.getKnownMoves(ctx.author.id, int(entityDexID))
+  if movelist == None:
+    await ctx.send(embed=allMoves)
+  elif len(movelist) >= 1:
+    FullEmbedPage1 = discord.Embed(title="Moves that you've learned for this character.", description="insert fancy description here", colour=discord.Colour.green())
+    for move in movelist:
+      FullEmbedPage1.add_field(name=f"{move}", value = " (Move descriptions will be available soon)",inline=False)
+
+    view = View()
+    pageMenu = Select(options=[
+    discord.SelectOption(label="Page 2")])
+    view.add_item(pageMenu)
+    await ctx.send(embed=allMoves,view=view)
+    async def my_callback(interaction):
+      await interaction.response.defer()
+      await interaction.edit_original_response(embed=FullEmbedPage1)
+    pageMenu.callback = my_callback
+        
+  else:
+    await ctx.send(embed=allMoves)
 
 #currency
 
@@ -263,28 +291,6 @@ async def daily(ctx):
     
 #DEV-ONLY
 
-#Check:
-
-
-
-@bot.command()
-@commands.is_owner()
-async def dataBase(ctx,action,key = None):
-  if action == 'list':
-    await ctx.send(db.keys())
-  elif action == "del":
-    del db[key]
-    await ctx.send(f"Key {key} deleted.")
-  elif action == "url":
-    url = os.getenv("REPLIT_DB_URL")
-    await ctx.send(f"URL: {url}")
-  elif action == "get":
-    res = db[key]
-    await ctx.send(f"Key {key} contains value: {res}")
-
-
-  else:
-    await ctx.send("Uknown command.")
 
 
 
