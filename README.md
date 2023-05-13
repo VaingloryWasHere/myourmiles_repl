@@ -11,7 +11,7 @@ This discord bot is made for the discord server "DCS Stories," a space for fanfi
 
 Myourmiles was inspired by PokeTwo and was originally intended to be a simple catch-and-battle bot. After some consideration, I decided to make the bot have it's own lore in the Tensura universe. The "player" is an adventurer starting in the Blumund Royal Capital a few years before Rimuru's reincarnation.
 
-##Progress
+## Progress
 
 - Get the basic `start` and `tutorial` commands done: ✅
 - Allow player to choose their first character: ✅
