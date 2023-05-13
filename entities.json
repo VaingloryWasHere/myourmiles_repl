@@ -1,1 +1,1 @@
-{"_default": {"1": {"entityID": 1, "name": "Unnamed Slime", "owner_id": 718710286596702220, "hp": 500, "referId": 2, "moves": []}, "2": {"entityID": 2, "name": "Unnamed Lesser Demon", "owner_id": 770533590089203712, "hp": 750, "referId": 3, "moves": []}}}
+{"_default": {"1": {"entityID": 1, "name": "Unnamed Elf", "owner_id": 718710286596702220, "hp": 500, "referId": 4, "level": 1, "moves": []}}}
