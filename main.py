@@ -1,16 +1,13 @@
-from src import entity
+import entity
 from discord.ext import commands
 import discord
 import os
 from keep_alive import keep_alive
-from replit import db
 import asyncio
-from src import currency
-from math import *
-from time import *
+import currency
 from datetime import timedelta
 from discord.ui import View, Button, Select
-from src import movement
+import movement
 from tinydb import TinyDB, Query
 
 
@@ -218,7 +215,7 @@ async def team(ctx):
 #MOVESET
 
 @bot.command()
-async def moveset(ctx, entityDexID):
+async def moves(ctx, entityDexID):
   #each player can own only one instance of each character, thus each player will have only one entityDexId for each character
 
   allMoves = entity.moveset(entityDexID)
@@ -242,6 +239,26 @@ async def moveset(ctx, entityDexID):
         
   else:
     await ctx.send(embed=allMoves)
+
+
+@bot.command()
+async def learn(ctx,*,rawtext):
+  db = TinyDB("entities.json")
+  movedb = TinyDB("moves.json")
+
+  entityName, moveName = rawtext.split(",")
+
+  stuff = db.get((Query().entityID == entityName) & (Query().owner_id == ctx.author.id))
+  stuff2 = movedb.get((Query().name == moveName))
+  if stuff and stuff2:
+    moveList = stuff["moves"]
+    userGuy = Query()
+    db.update({"moves":moveList},(Query().entityID == entityName) & (Query().owner_id == ctx.author.id))
+              
+    
+  else:
+        # There is no matching record
+        print("No matching record found")
 
 #currency
 

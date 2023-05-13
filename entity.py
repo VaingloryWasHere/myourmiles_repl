@@ -1,7 +1,8 @@
 from replit import db
 from tinydb import TinyDB, Query
 import discord
-from src import movement
+import movement
+
 
 intents = discord.Intents().all()
 bot = discord.Client(command_prefix="@",intents=intents)
@@ -69,12 +70,12 @@ def create(owner_id, entityName):
       highest_id = max(entity_ids)
       print(f"The highest entity id is: {highest_id}")
         
-      enCache.insert({'entityID':highest_id+1,'name':entityName,'owner_id':owner_id, 'hp':hp, 'referId':result[0], 'moves': []})
+      enCache.insert({'entityID':highest_id+1,'name':entityName,'owner_id':owner_id, 'hp':hp, 'referId':result[0], 'level':1, 'moves': []})
       movement.spawn_on_map(owner_id)
 
     
   else:
-      enCache.insert({'entityID':1,'name':entityName,'owner_id':owner_id, 'hp':hp, 'referId':result[0], 'moves': []})
+      enCache.insert({'entityID':1,'name':entityName,'owner_id':owner_id, 'hp':hp, 'referId':result[0], 'level':1, 'moves': []})
       movement.spawn_on_map(owner_id)
   
 
