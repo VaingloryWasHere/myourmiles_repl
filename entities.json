@@ -1,1 +1,1 @@
-{"_default": {"1": {"entityID": 1, "name": "Unnamed Elf", "owner_id": 718710286596702220, "hp": 500, "referId": 4, "level": 1, "moves": []}}}
+{"_default": {"1": {"entityID": 1, "name": "Unnamed Elf", "owner_id": 718710286596702220, "hp": 500, "referId": 4, "level": 1, "moves": ["Minor Heal"]}}}

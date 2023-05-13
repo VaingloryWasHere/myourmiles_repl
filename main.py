@@ -246,19 +246,24 @@ async def learn(ctx,*,rawtext):
   db = TinyDB("entities.json")
   movedb = TinyDB("moves.json")
 
-  entityName, moveName = rawtext.split(",")
+  entityID,moveName = rawtext.split(",")
 
-  stuff = db.get((Query().entityID == entityName) & (Query().owner_id == ctx.author.id))
+  stuff = db.get((Query().referId == int(entityID)) & (Query().owner_id == ctx.author.id))
   stuff2 = movedb.get((Query().name == moveName))
+  print(stuff)
+  print(stuff2)
   if stuff and stuff2:
-    moveList = stuff["moves"]
-    userGuy = Query()
-    db.update({"moves":moveList},(Query().entityID == entityName) & (Query().owner_id == ctx.author.id))
+    if stuff["moves"]:
+      moveList = stuff["moves"]
+      moveList.append(moveName)
+    else:
+      moveList = [moveName]
+    
+    db.update({"moves":moveList},(Query().referId == int(entityID)) & (Query().owner_id == ctx.author.id))
+
+
               
     
-  else:
-        # There is no matching record
-        print("No matching record found")
 
 #currency
 
