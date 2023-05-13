@@ -1,16 +1,16 @@
-import entity
+from src import entity
 from discord.ext import commands
 import discord
 import os
 from keep_alive import keep_alive
 from replit import db
 import asyncio
-import currency
+from src import currency
 from math import *
 from time import *
 from datetime import timedelta
 from discord.ui import View, Button, Select
-import movement
+from src import movement
 from tinydb import TinyDB, Query
 
 
@@ -368,4 +368,4 @@ async def travel(ctx,*,destination):
 
 
 keep_alive()
-bot.run("MTA5NTY0NTA3NzM5MDUwODEwMg.G2qIJZ.Z72tzGiYYj-L4B2O3X72RzT-rUVaGUkvZh9BhI")
+bot.run(os.getenv("token"))

@@ -1,7 +1,7 @@
 from replit import db
 from tinydb import TinyDB, Query
 import discord
-import movement
+from src import movement
 
 intents = discord.Intents().all()
 bot = discord.Client(command_prefix="@",intents=intents)
