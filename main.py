@@ -24,6 +24,35 @@ print("hi")
 
 bot.owner_id = 718710286596702220
 
+@bot.event
+async def on_message(msg):
+  enCache = TinyDB("entities.json")
+  if msg.author == bot.user:
+    return
+  elif msg.author.bot:
+    return
+  else:
+    db = TinyDB("profiles.json")
+    for item in db.all:
+      if item["user_id"] == msg.author.id:
+        selected_char = item["selected_entity_id"]
+        enObj = enCache.get((Query().entityID == selected_char))
+
+        enLevel = enObj["level"]
+        #xp threshold = 100x level
+        expected_threshold = enLevel * 10
+        if enObj["threshold"] != expected_threshold:
+          await msg.channel.send("Error. Fatal Error occured. Expected threshold(Level * 10) does not match actual threshold. Aborting.")
+          return        
+        
+        
+        
+        
+        
+        
+    
+
+
    
 @bot.command()
 async def button(ctx):
