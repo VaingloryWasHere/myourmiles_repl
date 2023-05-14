@@ -8,12 +8,12 @@ import currency
 from datetime import timedelta
 from discord.ui import View, Button, Select
 import movement
-from tinydb import TinyDB, Query
+from tinydb import TinyDB, Query, where
 
 
 print(os.getenv("REPLIT_DB_URL"))
 
-
+#hello
 
 these = discord.Intents().all()
 # Set up the bot command prefix
@@ -24,7 +24,7 @@ print("hi")
 
 bot.owner_id = 718710286596702220
 
-@bot.event
+'''@bot.event
 async def on_message(msg):
   enCache = TinyDB("entities.json")
   if msg.author == bot.user:
@@ -43,7 +43,7 @@ async def on_message(msg):
         expected_threshold = enLevel * 10
         if enObj["threshold"] != expected_threshold:
           await msg.channel.send("Error. Fatal Error occured. Expected threshold(Level * 10) does not match actual threshold. Aborting.")
-          return        
+          return     '''   
         
         
         
@@ -276,6 +276,10 @@ async def learn(ctx,*,rawtext):
   movedb = TinyDB("moves.json")
 
   entityID,moveName = rawtext.split(",")
+  enRefData = entity.reference(entityID)
+  if moveName not in enRefData:
+    await ctx.send(f"Move name '{moveName}' can not be learned by a/an {enRefData[1]}")
+    return
 
   stuff = db.get((Query().referId == int(entityID)) & (Query().owner_id == ctx.author.id))
   stuff2 = movedb.get((Query().name == moveName))
@@ -413,11 +417,104 @@ async def travel(ctx,*,destination):
     await ctx.send(embed=movementDoneEmbed)
     
 
+async def chooseENUser1(ctx,user1):
+
+  def checkUser1(message):
+    return message.author == user1 and message.channel == message.author.dm_channel
+
+  winner = None
+  times = 0
+
+  user1Team = []
+  user1embed = discord.Embed(title="Choose 3 characters",       description="Say your character's ID.")
+  await user1.send(embed=user1embed)
+
+  try:
+    choice1_user1 = bot.wait_for('message', check=checkUser1, timeout=30.0)
+  except asyncio.TimeoutError:
+    await user1.send("you didn't respond in time. Fight cancelled.")
+    return
+  else:
+    enCache = TinyDB("entities.json")
+    en1 = enCache.get((where('referId') == int(choice1_user1) & (where('owner_id') == user1.id)))
+
+    if en1:
+        user1Team.append(en1["name"])
+        user1embed.add_field(name=f"1.{en1['name']}", description=f"HP:{en1['hp']}\nLevel: {en1['level']}")
+
+        await user1.send(embed=user1embed)
+
+  try:
+    choice2_user1 = bot.wait_for('message', check=checkUser1, timeout=30.0)
+  except asyncio.TimeoutError:
+    await user1.send("you didn't respond in time. Fight cancelled.")
+    return
+  else:
+    enCache = TinyDB("entities.json")
+    en2 = enCache.get((where('referId') == int(choice2_user1) & (where('owner_id') == user1.id)))
+
+    if en2:
+        user1Team.append(en2["name"])
+        user1embed.add_field(name=f"2.{en2['name']}", description=f"HP:{en2['hp']}\nLevel: {en2['level']}")
+
+        await user1.send(embed=user1embed)
+
+  try:
+    choice3_user1 = bot.wait_for('message', check=checkUser1, timeout=30.0)
+  except asyncio.TimeoutError:
+    await user1.send("you didn't respond in time. Fight cancelled.")
+    return
+  else:
+    enCache = TinyDB("entities.json")
+    en3 = enCache.get((where('referId') == int(choice3_user1) & (where('owner_id') == user1.id)))
+
+    if en3:
+        user1Team.append(en3["name"])
+        user1embed.add_field(name=f"1.{en3['name']}", description=f"HP:{en3['hp']}\nLevel: {en3['level']}")
+        await user1.send(user1embed)
 
 
+                      
+
+    
+    
 
 
+#batle command....yay
 
-keep_alive()
+@bot.command()
+async def battle(ctx,against : discord.Member):
+
+  def replyCheck(message):
+    return message.author == against and message.channel == ctx.channel
+  
+  await ctx.channel.send(f"User {ctx.author.mention} has challenged {against.mention} to a battle! Replt with yes/no within 15 seconds, {against.mention}")
+
+  try:
+    reply = await bot.wait_for('message', timeout=15.0, check = replyCheck)
+  except asyncio.TimeoutError:
+    await ctx.send(f"{against.mention} didn't reply. Challenge cancelled.")
+  else:
+    if reply.content == "yes" or "Yes":
+      await ctx.send("Beginning battle!")
+      await chooseENUser1(ctx,ctx.author)
+    
+  #msg = await bot.wait_for('message', check = lambda x: x.channel == member.dm_channel and x.author == member, timeout=30)
+#above code will be useful later
+# This will be good
+
+
 bot.run(os.getenv("token"))
+
+#reserved
+class Doc(object):
+  """
+  We will talk here - Koten
+  Good - koten
+
+  oki,umm les seeee - me
+  lol
+
+  """
+
 
