@@ -16,19 +16,20 @@ def reference(target):
         for line in f:
             values = line.strip().strip('[]').split(',')
             if int(values[0]) == target:
-              for i, el in enumerate(values):
-                if i == 0: #ID
-                  res.append(int(el))
-                elif i == 1: #name
-                  res.append(str(el)) 
-                elif i == 2: #rank
-                  res.append(str(el))
-                elif i == 3: #HP
-                  res.append(int(el))
-                elif i==4: #max movez
-                  res.append(int(el))
-                else: #attacks
-                  res.append(str(el))
+              for i, el in enumerate(values):  
+                match i:
+                  case 0: #ID
+                    res.append(int(el))
+                  case 1: #name
+                    res.append(str(el))
+                  case 2: #rank
+                    res.append(str(el))
+                  case 3: #HP
+                    res.append(int(el))
+                  case 4: #max movez
+                    res.append(int(el))
+                  case _: #attacks
+                    res.append(str(el))
         return res
 
 
@@ -39,18 +40,19 @@ def reference(target):
             values = line.strip().strip('[]').split(',')
             if str(values[1]) == target:
               for i, el in enumerate(values):
-                if i == 0: #ID
-                  res.append(int(el))
-                elif i == 1: #name
-                  res.append(str(el)) 
-                elif i == 2: #rank
-                  res.append(str(el))
-                elif i == 3: #HP
-                  res.append(int(el))
-                elif i==4: #max movez
-                  res.append(int(el))
-                else: #attacks
-                  res.append(str(el))
+                 match i:
+                   case 0: #ID
+                     res.append(int(el))
+                   case 1: #name
+                     res.append(str(el))
+                   case 2: #rank
+                     res.append(str(el))
+                   case 3: #HP
+                     res.append(int(el))
+                   case 4: #max movez
+                     res.append(int(el))
+                   case _: #attacks
+                     res.append(str(el))
         return res
   
   
