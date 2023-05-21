@@ -1,2 +1,34 @@
-{"_default": {"1": {"name": "Fireball", "lvlRequired": 1, "type": "spell", "learner_ids": [1,3,4], "dmg_type": "Magic", "damage": 25, "description": "Harness the power of fire, sending forth a ball of destructive energy. Deals 25 magical-type damage.", "effect_ids": [1]}, "2": {"name": "Minor Heal", "lvlRequired": 1, "type": "spell", "learner_ids": [4], "dmg_type": "magic", "damage": 0, "description": "Use the most minor healing spell. Restores 10 hp.", "effect_ids": [2]}}}
-
+{
+  "_default": {
+    "1": {
+      "name": "Fireball",
+      "lvlRequired": 1,
+      "type": "spell",
+      "learner_ids": [
+        1,
+        3,
+        4
+      ],
+      "dmg_type": "Magic",
+      "damage": 25,
+      "description": "Harness the power of fire, sending forth a ball of destructive energy. Deals 25 magical-type damage.",
+      "effect_ids": [
+        1
+      ]
+    },
+    "2": {
+      "name": "Minor Heal",
+      "lvlRequired": 1,
+      "type": "spell",
+      "learner_ids": [
+        4
+      ],
+      "dmg_type": "magic",
+      "damage": 0,
+      "description": "Use the most minor healing spell. Restores 10 hp.",
+      "effect_ids": [
+        2
+      ]
+    }
+  }
+}

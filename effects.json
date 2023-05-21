@@ -1,1 +1,22 @@
-{"_default": {"1": {"ID": 1, "name": "minor burn", "emoji": ":fireball:", "harmingEffect": true, "dmgPerTurn": 10, "durationTurns": 3, "gapPerTurn": 0}, "2": {"ID": 2, "name": "minor burst restore", "emoji": "<:minorburstheal:1106826968239968277>", "selfheal": true, "burst": true, "regenerative": false, "healamount": 20}}}
+{
+  "_default": {
+    "1": {
+      "ID": 1,
+      "name": "minor burn",
+      "emoji": ":fireball:",
+      "harmingEffect": True,
+      "dmgPerTurn": 10,
+      "durationTurns": 3,
+      "gapPerTurn": 0
+    },
+    "2": {
+      "ID": 2,
+      "name": "minor burst restore",
+      "emoji": "<:minorburstheal:1106826968239968277>",
+      "selfheal": True,
+      "burst": True,
+      "regenerative": false,
+      "healamount": 20
+    }
+  }
+}
