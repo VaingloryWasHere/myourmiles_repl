@@ -439,7 +439,15 @@ async def battle(ctx,against : discord.Member):
 # This will be good
 
 
-bot.run("MTA5NTY0NTA3NzM5MDUwODEwMg.GmgIhZ.Dfxp21OayKePqtSSXJuwHeQZpjUlKDgR8VkGUI")
+def get_token():
+    with open('data/token.txt', 'r') as file:
+        return file.readline().strip()
+
+
+
+
+
+bot.run(get_token())
 
 #reserved
 class Doc(object):
