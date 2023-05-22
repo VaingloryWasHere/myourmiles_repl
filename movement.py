@@ -1,6 +1,6 @@
 from tinydb import TinyDB, Query
 import asyncio
-map = TinyDB("playerLocations.json")
+map = TinyDB(r"data\playerLocations.json")
 
 def spawn_on_map(owner_id):
   map.insert({"user_id": owner_id,'location': 'Blumund: Royal Capital','status':'stationery','next location': None,'time_left': None})

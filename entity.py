@@ -1,7 +1,8 @@
-from replit import db
 from tinydb import TinyDB, Query
 import discord
 import movement
+
+
 
 
 intents = discord.Intents().all()
@@ -58,7 +59,7 @@ def reference(target):
 
 
 def create(owner_id, entityName):
-  enCache = TinyDB("entities.json")
+  enCache = TinyDB(r"data\entities.json")
   result = reference(entityName)
 
   if result != None:
@@ -119,7 +120,7 @@ def listMine(owner_id):
   myEntityName = []
   myEntityID = []
   myEntityHP = []
-  enCache = TinyDB("entities.json")
+  enCache = TinyDB(r"data\entities.json")
   
   entityFind = Query()
   targetTeam = enCache.search(entityFind.owner_id==owner_id)
@@ -191,7 +192,7 @@ def moveset(target):
     
 def getKnownMoves(owner_id, entity_refID):
   query = Query()
-  enCache = TinyDB("entities.json")
+  enCache = TinyDB(r"data\entities.json")
   entityList = enCache.search(query.referId == entity_refID)
   print(len(entityList))
   for entity in entityList:

@@ -1,6 +1,6 @@
 from tinydb import TinyDB, Query
 
-bank = TinyDB("bank.json")
+bank = TinyDB(r"data\bank.json")
 
 def create_account(owner_id):  
   bank.insert({'id': owner_id, 'credits': 0})

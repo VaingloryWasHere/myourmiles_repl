@@ -1,7 +1,7 @@
 from tinydb import TinyDB, Query
 
-movedb = TinyDB("moves.json")
-entitydb = TinyDB("entities.json")
+movedb = TinyDB(r"data\moves.json")
+entitydb = TinyDB(r"data\entities.json")
 
 def learnmove(entityID, moveName):
   query = Query()

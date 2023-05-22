@@ -2,7 +2,6 @@ import entity
 from discord.ext import commands
 import discord
 import os
-from keep_alive import keep_alive
 import asyncio
 import currency
 from datetime import timedelta
@@ -10,8 +9,6 @@ from discord.ui import View, Button, Select
 import movement
 from tinydb import TinyDB, Query, where
 
-
-print(os.getenv("REPLIT_DB_URL"))
 
 #hello
 
@@ -67,7 +64,7 @@ async def button(ctx):
 #GAME.START SECTION
 @bot.command()
 async def start(ctx):
-  db = TinyDB("entities.json")
+  db = TinyDB(r"data\entities.json")
 
   if db:
         Entity = Query()
@@ -272,8 +269,8 @@ async def moves(ctx, entityDexID):
 
 @bot.command()
 async def learn(ctx,*,rawtext):
-  db = TinyDB("entities.json")
-  movedb = TinyDB("moves.json")
+  db = TinyDB(r"data\entities.json")
+  movedb = TinyDB(r"data\moves.json")
 
   entityID,moveName = rawtext.split(",")
   enRefData = entity.reference(entityID)
@@ -415,69 +412,7 @@ async def travel(ctx,*,destination):
     await movement.move(ctx.author.id,destination, 10)
     movementDoneEmbed = discord.Embed(title=f"Travel complete, {ctx.author}", description="Your current location is the Blumund Royal Capital Arena. TO get started with fightning in the arena, type `#arena help`", colour=discord.Colour.green())
     await ctx.send(embed=movementDoneEmbed)
-    
-
-async def chooseENUser1(ctx,user1):
-
-  def checkUser1(message):
-    return message.author == user1 and message.channel == message.author.dm_channel
-
-  winner = None
-  times = 0
-
-  user1Team = []
-  user1embed = discord.Embed(title="Choose 3 characters",       description="Say your character's ID.")
-  await user1.send(embed=user1embed)
-
-  try:
-    choice1_user1 = bot.wait_for('message', check=checkUser1, timeout=30.0)
-  except asyncio.TimeoutError:
-    await user1.send("you didn't respond in time. Fight cancelled.")
-    return
-  else:
-    enCache = TinyDB("entities.json")
-    en1 = enCache.get((where('referId') == int(choice1_user1) & (where('owner_id') == user1.id)))
-
-    if en1:
-        user1Team.append(en1["name"])
-        user1embed.add_field(name=f"1.{en1['name']}", description=f"HP:{en1['hp']}\nLevel: {en1['level']}")
-
-        await user1.send(embed=user1embed)
-
-  try:
-    choice2_user1 = bot.wait_for('message', check=checkUser1, timeout=30.0)
-  except asyncio.TimeoutError:
-    await user1.send("you didn't respond in time. Fight cancelled.")
-    return
-  else:
-    enCache = TinyDB("entities.json")
-    en2 = enCache.get((where('referId') == int(choice2_user1) & (where('owner_id') == user1.id)))
-
-    if en2:
-        user1Team.append(en2["name"])
-        user1embed.add_field(name=f"2.{en2['name']}", description=f"HP:{en2['hp']}\nLevel: {en2['level']}")
-
-        await user1.send(embed=user1embed)
-
-  try:
-    choice3_user1 = bot.wait_for('message', check=checkUser1, timeout=30.0)
-  except asyncio.TimeoutError:
-    await user1.send("you didn't respond in time. Fight cancelled.")
-    return
-  else:
-    enCache = TinyDB("entities.json")
-    en3 = enCache.get((where('referId') == int(choice3_user1) & (where('owner_id') == user1.id)))
-
-    if en3:
-        user1Team.append(en3["name"])
-        user1embed.add_field(name=f"1.{en3['name']}", description=f"HP:{en3['hp']}\nLevel: {en3['level']}")
-        await user1.send(user1embed)
-
-
                       
-
-    
-    
 
 
 #batle command....yay
@@ -504,7 +439,7 @@ async def battle(ctx,against : discord.Member):
 # This will be good
 
 
-bot.run(os.getenv("token"))
+bot.run("MTA5NTY0NTA3NzM5MDUwODEwMg.GmgIhZ.Dfxp21OayKePqtSSXJuwHeQZpjUlKDgR8VkGUI")
 
 #reserved
 class Doc(object):
